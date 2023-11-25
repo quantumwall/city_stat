@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.events.StartElement;
 
 import stat.model.Details;
 import stat.util.MapHelper;
@@ -34,11 +35,11 @@ public class CityXmlParser implements Parser {
 				if (event.isStartElement()) {
 					var element = event.asStartElement();
 					if (element.getName().getLocalPart().equals(DATA_TAG_NAME)) {
-						var city = element.getAttributeByName(new QName(CITY_ATTRIBUTE_NAME)).getValue();
-						var street = element.getAttributeByName(new QName(STREET_ATTRIBUTE_NAME)).getValue();
-						var houseCount = element.getAttributeByName(new QName(HOUSE_ATTRIBUTE_NAME)).getValue();
-						var floor = element.getAttributeByName(new QName(FLOOR_ATTRIBUTE_NAME)).getValue();
-						var row = String.join(";", city, street, houseCount, floor);
+//						var city = element.getAttributeByName(new QName(CITY_ATTRIBUTE_NAME)).getValue();
+//						var street = element.getAttributeByName(new QName(STREET_ATTRIBUTE_NAME)).getValue();
+//						var houseCount = element.getAttributeByName(new QName(HOUSE_ATTRIBUTE_NAME)).getValue();
+//						var floor = element.getAttributeByName(new QName(FLOOR_ATTRIBUTE_NAME)).getValue();
+						var row = getRow(element);
 						duplicates.merge(row, 1, Integer::sum);
 						MapHelper.insertBuildings(buildingsQuantity, row);
 					}
@@ -53,24 +54,13 @@ public class CityXmlParser implements Parser {
 		} catch (XMLStreamException e) {
 			throw new RuntimeException(e);
 		}
-
 	}
 
-//	private void deleteUniqueElements(Map<String, Integer> map) {
-//		var keys = Set.copyOf(map.keySet());
-//		for (String key : keys) {
-//			map.remove(key, 1);
-//		}
-//	}
-//
-//	private void insertBuildings(Map<String, Map<Integer, Integer>> map, String row) {
-//		var rowElements = row.split(";");
-//		var city = rowElements[0];
-//		var houseCount = Integer.parseInt(rowElements[2]);
-//		var floors = Integer.parseInt(rowElements[3]);
-//		if (map.putIfAbsent(city, new HashMap<>(Map.of(floors, houseCount))) != null) {
-//			map.get(city).merge(floors, houseCount, Integer::sum);
-//		}
-//	}
-
+	private String getRow(StartElement element) {
+		var city = element.getAttributeByName(new QName(CITY_ATTRIBUTE_NAME)).getValue();
+		var street = element.getAttributeByName(new QName(STREET_ATTRIBUTE_NAME)).getValue();
+		var houseCount = element.getAttributeByName(new QName(HOUSE_ATTRIBUTE_NAME)).getValue();
+		var floor = element.getAttributeByName(new QName(FLOOR_ATTRIBUTE_NAME)).getValue();
+		return String.join(";", city, street, houseCount, floor);
+	}
 }

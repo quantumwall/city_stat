@@ -53,20 +53,4 @@ public class CityCsvParser implements Parser {
 	private String getRow(CSVRecord csvRec) {
 		return csvRec.stream().collect(Collectors.joining(Character.toString(DELIMITER)));
 	}
-
-//	private void deleteUniqueElements(Map<String, Integer> map) {
-//		var keys = Set.copyOf(map.keySet());
-//		for (String key : keys) {
-//			map.remove(key, 1);
-//		}
-//	}
-
-//	private void insertBuildings(CSVRecord csvRec, Map<String, Map<Integer, Integer>> map) {
-//		var city = csvRec.get(CITY_COLUMN_NAME);
-//		var houseCount = Integer.parseInt(csvRec.get(HOUSE_COLUMN_NAME));
-//		var floors = Integer.parseInt(csvRec.get(FLOOR_COLUMN_NAME));
-//		if (map.putIfAbsent(city, new HashMap<>(Map.of(floors, houseCount))) != null) {
-//			map.get(city).merge(floors, houseCount, Integer::sum);
-//		}
-//	}
 }

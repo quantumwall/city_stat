@@ -6,11 +6,13 @@ import java.util.Set;
 
 public class MapHelper {
 
+	private static final String DELIMITER = ";";
+
 	private MapHelper() {
 	}
 
 	public static void insertBuildings(Map<String, Map<Integer, Integer>> map, String row) {
-		var rowElements = row.split(";");
+		var rowElements = row.split(DELIMITER);
 		var city = rowElements[0];
 		var houseCount = Integer.parseInt(rowElements[2]);
 		var floors = Integer.parseInt(rowElements[3]);

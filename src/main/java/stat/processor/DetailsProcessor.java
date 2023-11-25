@@ -1,6 +1,7 @@
 package stat.processor;
 
 import java.util.Map;
+import java.util.Objects;
 
 import stat.model.Details;
 
@@ -9,6 +10,7 @@ public class DetailsProcessor {
 	private final Details details;
 
 	public DetailsProcessor(Details details) {
+		Objects.requireNonNull(details, "Details object must be non null");
 		this.details = details;
 	}
 
