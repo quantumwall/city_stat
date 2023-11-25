@@ -5,13 +5,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 
 import stat.model.Details;
+import stat.util.MapHelper;
 
 public class CityXmlParser implements Parser {
 
@@ -40,11 +40,11 @@ public class CityXmlParser implements Parser {
 						var floor = element.getAttributeByName(new QName(FLOOR_ATTRIBUTE_NAME)).getValue();
 						var row = String.join(";", city, street, houseCount, floor);
 						duplicates.merge(row, 1, Integer::sum);
-						insertBuildings(buildingsQuantity, row);
+						MapHelper.insertBuildings(buildingsQuantity, row);
 					}
 				}
 			}
-			deleteUniqueElements(duplicates);
+			MapHelper.deleteUniqueElements(duplicates);
 			details.setDuplicates(duplicates);
 			details.setBuildindsQuantity(buildingsQuantity);
 			return details;
@@ -56,21 +56,21 @@ public class CityXmlParser implements Parser {
 
 	}
 
-	private void deleteUniqueElements(Map<String, Integer> map) {
-		var keys = Set.copyOf(map.keySet());
-		for (String key : keys) {
-			map.remove(key, 1);
-		}
-	}
-
-	private void insertBuildings(Map<String, Map<Integer, Integer>> map, String row) {
-		var rowElements = row.split(";");
-		var city = rowElements[0];
-		var houseCount = Integer.parseInt(rowElements[2]);
-		var floors = Integer.parseInt(rowElements[3]);
-		if (map.putIfAbsent(city, new HashMap<>(Map.of(floors, houseCount))) != null) {
-			map.get(city).merge(floors, houseCount, Integer::sum);
-		}
-	}
+//	private void deleteUniqueElements(Map<String, Integer> map) {
+//		var keys = Set.copyOf(map.keySet());
+//		for (String key : keys) {
+//			map.remove(key, 1);
+//		}
+//	}
+//
+//	private void insertBuildings(Map<String, Map<Integer, Integer>> map, String row) {
+//		var rowElements = row.split(";");
+//		var city = rowElements[0];
+//		var houseCount = Integer.parseInt(rowElements[2]);
+//		var floors = Integer.parseInt(rowElements[3]);
+//		if (map.putIfAbsent(city, new HashMap<>(Map.of(floors, houseCount))) != null) {
+//			map.get(city).merge(floors, houseCount, Integer::sum);
+//		}
+//	}
 
 }

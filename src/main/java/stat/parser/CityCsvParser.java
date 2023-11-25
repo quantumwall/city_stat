@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.csv.CSVFormat;
@@ -14,6 +13,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import stat.model.Details;
+import stat.util.MapHelper;
 
 public class CityCsvParser implements Parser {
 
@@ -37,9 +37,9 @@ public class CityCsvParser implements Parser {
 			parser.forEach(csvRec -> {
 				var row = getRow(csvRec);
 				duplicates.merge(row, 1, Integer::sum);
-				insertBuildings(csvRec, buildingsQuantity);
+				MapHelper.insertBuildings(buildingsQuantity, row);
 			});
-			deleteUniqueElements(duplicates);
+			MapHelper.deleteUniqueElements(duplicates);
 			details.setDuplicates(duplicates);
 			details.setBuildindsQuantity(buildingsQuantity);
 			return details;
@@ -54,19 +54,19 @@ public class CityCsvParser implements Parser {
 		return csvRec.stream().collect(Collectors.joining(Character.toString(DELIMITER)));
 	}
 
-	private void deleteUniqueElements(Map<String, Integer> map) {
-		var keys = Set.copyOf(map.keySet());
-		for (String key : keys) {
-			map.remove(key, 1);
-		}
-	}
+//	private void deleteUniqueElements(Map<String, Integer> map) {
+//		var keys = Set.copyOf(map.keySet());
+//		for (String key : keys) {
+//			map.remove(key, 1);
+//		}
+//	}
 
-	private void insertBuildings(CSVRecord csvRec, Map<String, Map<Integer, Integer>> map) {
-		var city = csvRec.get(CITY_COLUMN_NAME);
-		var houseCount = Integer.parseInt(csvRec.get(HOUSE_COLUMN_NAME));
-		var floors = Integer.parseInt(csvRec.get(FLOOR_COLUMN_NAME));
-		if (map.putIfAbsent(city, new HashMap<>(Map.of(floors, houseCount))) != null) {
-			map.get(city).merge(floors, houseCount, Integer::sum);
-		}
-	}
+//	private void insertBuildings(CSVRecord csvRec, Map<String, Map<Integer, Integer>> map) {
+//		var city = csvRec.get(CITY_COLUMN_NAME);
+//		var houseCount = Integer.parseInt(csvRec.get(HOUSE_COLUMN_NAME));
+//		var floors = Integer.parseInt(csvRec.get(FLOOR_COLUMN_NAME));
+//		if (map.putIfAbsent(city, new HashMap<>(Map.of(floors, houseCount))) != null) {
+//			map.get(city).merge(floors, houseCount, Integer::sum);
+//		}
+//	}
 }
