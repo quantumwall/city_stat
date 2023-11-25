@@ -24,7 +24,7 @@ public class DetailsProcessor {
 	public String getBuldingsStatString() {
 		var stringBuilder = new StringBuilder();
 		stringBuilder.append("Город\t\tЭтажей в здании\t\tКоличество зданий\n");
-		for (Map.Entry<String, Map<Integer, Integer>> pair : details.getBuildindsQuantityByCity().entrySet()) {
+		for (Map.Entry<String, Map<Integer, Integer>> pair : details.getBuildindsQuantity().entrySet()) {
 			for (Map.Entry<Integer, Integer> houses : pair.getValue().entrySet()) {
 				stringBuilder.append("%s\t%d\t%d\n".formatted(pair.getKey(), houses.getKey(), houses.getValue()));
 			}

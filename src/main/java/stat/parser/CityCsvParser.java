@@ -41,7 +41,7 @@ public class CityCsvParser implements Parser {
 			});
 			deleteUniqueElements(duplicates);
 			details.setDuplicates(duplicates);
-			details.setBuildindsQuantityByCity(buildingsQuantityByCity);
+			details.setBuildindsQuantity(buildingsQuantityByCity);
 			return details;
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
