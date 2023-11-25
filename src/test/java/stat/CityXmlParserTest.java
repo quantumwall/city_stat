@@ -6,20 +6,17 @@ import java.net.URISyntaxException;
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestInstance.Lifecycle;
 
-import stat.parser.CityCsvParser;
+import stat.parser.CityXmlParser;
 
-@TestInstance(Lifecycle.PER_CLASS)
-class CityCsvParserTest extends ParserTest {
+class CityXmlParserTest extends ParserTest {
 
-	private static final String FILE_NAME = "address.csv";
-	private final CityCsvParser parser;
+	private static final String FILE_NAME = "address.xml";
+	private final CityXmlParser parser;
 
-	public CityCsvParserTest() throws URISyntaxException {
-		super(Path.of(CityCsvParserTest.class.getClassLoader().getResource(FILE_NAME).toURI()));
-		parser = new CityCsvParser();
+	public CityXmlParserTest() throws URISyntaxException {
+		super(Path.of(CityXmlParserTest.class.getClassLoader().getResource(FILE_NAME).toURI()));
+		this.parser = new CityXmlParser();
 	}
 
 	@Test
@@ -28,7 +25,7 @@ class CityCsvParserTest extends ParserTest {
 		var duplicates = details.getDuplicates();
 		assertEquals(expectedDuplicates, duplicates);
 	}
-	
+
 	@Test
 	void shouldReturnCorrectStatistic() {
 		var details = parser.parse(testDataFile);

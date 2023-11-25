@@ -1,14 +1,17 @@
 package stat;
 
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class CsvParserTest {
+public abstract class ParserTest {
 
 	protected final Map<String, Integer> expectedDuplicates;
 	protected final Map<String, Map<Integer, Integer>> expectedStatistic;
+	protected final Path testDataFile;
 
-	public CsvParserTest() {
+	public ParserTest(Path testDataFile) {
+		this.testDataFile = testDataFile;
 		expectedDuplicates = new HashMap<String, Integer>();
 		populateDuplicates(expectedDuplicates);
 		expectedStatistic = new HashMap<String, Map<Integer, Integer>>();

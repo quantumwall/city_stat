@@ -33,15 +33,15 @@ public class CityCsvParser implements Parser {
 					.setHeader(CITY_COLUMN_NAME, STREET_COLUMN_NAME, HOUSE_COLUMN_NAME, FLOOR_COLUMN_NAME)
 					.setQuote(QUOTE_TYPE).setTrim(true).build().parse(reader);
 			var duplicates = new HashMap<String, Integer>();
-			var buildingsQuantityByCity = new HashMap<String, Map<Integer, Integer>>();
+			var buildingsQuantity = new HashMap<String, Map<Integer, Integer>>();
 			parser.forEach(csvRec -> {
-				var line = getLine(csvRec);
-				duplicates.merge(line, 1, Integer::sum);
-				insertBuildings(csvRec, buildingsQuantityByCity);
+				var row = getRow(csvRec);
+				duplicates.merge(row, 1, Integer::sum);
+				insertBuildings(csvRec, buildingsQuantity);
 			});
 			deleteUniqueElements(duplicates);
 			details.setDuplicates(duplicates);
-			details.setBuildindsQuantity(buildingsQuantityByCity);
+			details.setBuildindsQuantity(buildingsQuantity);
 			return details;
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
@@ -50,7 +50,7 @@ public class CityCsvParser implements Parser {
 		}
 	}
 
-	private String getLine(CSVRecord csvRec) {
+	private String getRow(CSVRecord csvRec) {
 		return csvRec.stream().collect(Collectors.joining(Character.toString(DELIMITER)));
 	}
 
