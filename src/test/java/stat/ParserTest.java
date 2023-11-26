@@ -1,21 +1,51 @@
 package stat;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
+
+import stat.parser.Parser;
+
+@TestInstance(Lifecycle.PER_CLASS)
 public abstract class ParserTest {
 
-	protected final Map<String, Integer> expectedDuplicates;
-	protected final Map<String, Map<Integer, Integer>> expectedStatistic;
-	protected final Path testDataFile;
+	private final Map<String, Integer> expectedDuplicates;
+	private final Map<String, Map<Integer, Integer>> expectedStatistic;
+	private final Path testDataFile;
+	private final Parser parser;
 
-	public ParserTest(Path testDataFile) {
+	public ParserTest(Parser parser, Path testDataFile) {
+		this.parser = parser;
 		this.testDataFile = testDataFile;
 		expectedDuplicates = new HashMap<String, Integer>();
-		populateDuplicates(expectedDuplicates);
 		expectedStatistic = new HashMap<String, Map<Integer, Integer>>();
+	}
+
+	@BeforeAll
+	void initTestData() {
+		populateDuplicates(expectedDuplicates);
 		populateStatistic(expectedStatistic);
+	}
+
+	@Test
+	void shouldReturnCorrectDuplicatesMap() {
+		var details = parser.parse(testDataFile);
+		var duplicates = details.getDuplicates();
+		assertEquals(expectedDuplicates, duplicates);
+	}
+
+	@Test
+	void shouldReturnCorrectStatistic() {
+		var details = parser.parse(testDataFile);
+		var stat = details.getBuildindsQuantity();
+		assertEquals(expectedStatistic, stat);
 	}
 
 	private void populateDuplicates(Map<String, Integer> duplicates) {

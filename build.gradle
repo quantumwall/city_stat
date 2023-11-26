@@ -19,6 +19,12 @@ java {
     }
 }
 
+jar {
+  manifest {
+    attributes 'Main-Class': 'stat.App'
+  }
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }
