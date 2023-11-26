@@ -16,12 +16,13 @@ import stat.util.MapHelper;
 
 public class CityXmlParser implements Parser {
 
+	private static final String DATA_TAG_NAME = "item";
 	private static final String CITY_ATTRIBUTE_NAME = "city";
 	private static final String STREET_ATTRIBUTE_NAME = "street";
 	private static final String HOUSE_ATTRIBUTE_NAME = "house";
 	private static final String FLOOR_ATTRIBUTE_NAME = "floor";
-	private static final String DATA_TAG_NAME = "item";
 
+	
 	@Override
 	public Details parse(Path path) {
 		var xmlInputFactory = XMLInputFactory.newInstance();
@@ -35,10 +36,6 @@ public class CityXmlParser implements Parser {
 				if (event.isStartElement()) {
 					var element = event.asStartElement();
 					if (element.getName().getLocalPart().equals(DATA_TAG_NAME)) {
-//						var city = element.getAttributeByName(new QName(CITY_ATTRIBUTE_NAME)).getValue();
-//						var street = element.getAttributeByName(new QName(STREET_ATTRIBUTE_NAME)).getValue();
-//						var houseCount = element.getAttributeByName(new QName(HOUSE_ATTRIBUTE_NAME)).getValue();
-//						var floor = element.getAttributeByName(new QName(FLOOR_ATTRIBUTE_NAME)).getValue();
 						var row = getRow(element);
 						duplicates.merge(row, 1, Integer::sum);
 						MapHelper.insertBuildings(buildingsQuantity, row);
