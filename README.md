@@ -1,4 +1,4 @@
-<p><em>Тестовое задание на позицию Java junior developer<em></p>
+<p><em>Тестовое задание на позицию Java junior developer</em></p>
 
 <p>
 Программа парсит csv и xml файлы с информацией вида:

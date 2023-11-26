@@ -16,21 +16,23 @@ public class DetailsProcessor {
 
 	public String getDuplicatesString() {
 		var stringBuilder = new StringBuilder();
-		stringBuilder.append("Строка\t\tПовторений\n");
+		stringBuilder.append("%-50s%s\n".formatted("Строка", "Повторений"));
 		for (Map.Entry<String, Integer> pair : details.getDuplicates().entrySet()) {
-			stringBuilder.append("%s\t%d\n".formatted(pair.getKey(), pair.getValue()));
+			stringBuilder.append("%-50s%d\n".formatted(pair.getKey(), pair.getValue()));
 		}
 		return stringBuilder.toString();
 	}
 
 	public String getBuldingsStatString() {
 		var stringBuilder = new StringBuilder();
-		stringBuilder.append("Город\t\tЭтажей в здании\t\tКоличество зданий\n");
+		stringBuilder.append("%-20s%s%20s\n".formatted("Город", "Этажей в здании", "Количество зданий"));
 		for (Map.Entry<String, Map<Integer, Integer>> pair : details.getBuildindsQuantity().entrySet()) {
 			for (Map.Entry<Integer, Integer> houses : pair.getValue().entrySet()) {
-				stringBuilder.append("%s\t%d\t%d\n".formatted(pair.getKey(), houses.getKey(), houses.getValue()));
+				stringBuilder.append("%-20s%d%30d\n".formatted(pair.getKey(), houses.getKey(), houses.getValue()));
 			}
+			stringBuilder.append("\n");
 		}
+
 		return stringBuilder.toString();
 	}
 
