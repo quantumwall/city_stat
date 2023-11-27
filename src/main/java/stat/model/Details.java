@@ -6,14 +6,14 @@ import java.util.Objects;
 public class Details {
 
 	private Map<String, Integer> duplicates;
-	private Map<String, Map<Integer, Integer>> buildindsQuantity;
+	private Map<String, Map<Integer, Integer>> buildingsQuantity;
 
 	public void setBuildindsQuantity(Map<String, Map<Integer, Integer>> buildindsQuantityByCity) {
-		this.buildindsQuantity = buildindsQuantityByCity;
+		this.buildingsQuantity = buildindsQuantityByCity;
 	}
 
 	public Map<String, Map<Integer, Integer>> getBuildindsQuantity() {
-		return buildindsQuantity;
+		return buildingsQuantity;
 	}
 
 	public void setDuplicates(Map<String, Integer> duplicates) {

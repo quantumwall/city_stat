@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLInputFactory;
@@ -21,8 +22,8 @@ public class CityXmlParser implements Parser {
 	private static final String STREET_ATTRIBUTE_NAME = "street";
 	private static final String HOUSE_ATTRIBUTE_NAME = "house";
 	private static final String FLOOR_ATTRIBUTE_NAME = "floor";
+	private static final Logger LOG = Logger.getLogger(CityXmlParser.class.getName());
 
-	
 	@Override
 	public Details parse(Path path) {
 		var xmlInputFactory = XMLInputFactory.newInstance();
@@ -47,8 +48,10 @@ public class CityXmlParser implements Parser {
 			details.setBuildindsQuantity(buildingsQuantity);
 			return details;
 		} catch (IOException e) {
+			LOG.severe("An error ocurred reading file %s".formatted(path.toString()));
 			throw new RuntimeException(e);
 		} catch (XMLStreamException e) {
+			LOG.severe("An error while parsing file %s".formatted(path.toString()));
 			throw new RuntimeException(e);
 		}
 	}
