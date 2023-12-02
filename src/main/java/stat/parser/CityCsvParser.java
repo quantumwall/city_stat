@@ -38,8 +38,9 @@ public class CityCsvParser implements Parser {
 			var buildingsQuantity = new HashMap<String, Map<Integer, Integer>>();
 			parser.forEach(csvRec -> {
 				var row = getRow(csvRec);
-				duplicates.merge(row, 1, Integer::sum);
-				MapHelper.insertBuildings(buildingsQuantity, row);
+				if (duplicates.merge(row, 1, Integer::sum) == 1) {
+					MapHelper.insertBuildings(buildingsQuantity, row);
+				}
 			});
 			MapHelper.deleteUniqueElements(duplicates);
 			details.setDuplicates(duplicates);

@@ -38,8 +38,9 @@ public class CityXmlParser implements Parser {
 					var element = event.asStartElement();
 					if (element.getName().getLocalPart().equals(DATA_TAG_NAME)) {
 						var row = getRow(element);
-						duplicates.merge(row, 1, Integer::sum);
-						MapHelper.insertBuildings(buildingsQuantity, row);
+						if (duplicates.merge(row, 1, Integer::sum) == 1) {
+							MapHelper.insertBuildings(buildingsQuantity, row);
+						}
 					}
 				}
 			}

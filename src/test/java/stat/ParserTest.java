@@ -30,6 +30,8 @@ public abstract class ParserTest {
 
 	@BeforeAll
 	void initTestData() {
+		expectedDuplicates.clear();
+		expectedStatistic.clear();
 		populateDuplicates(expectedDuplicates);
 		populateStatistic(expectedStatistic);
 	}
@@ -55,29 +57,29 @@ public abstract class ParserTest {
 	}
 
 	private void populateStatistic(Map<String, Map<Integer, Integer>> statistic) {
-		statistic.put("Барнаул", new HashMap<Integer, Integer>(Map.of(2, 112)));
-		statistic.put("Братск", new HashMap<Integer, Integer>(Map.of(5, 163, 4, 60)));
-		statistic.put("Балаково", new HashMap<Integer, Integer>(Map.of(2, 67, 4, 122)));
-		statistic.put("Азов", new HashMap<Integer, Integer>(Map.of(3, 156)));
-		statistic.put("Видное", new HashMap<Integer, Integer>(Map.of(3, 185)));
-		statistic.put("Батайск", new HashMap<Integer, Integer>(Map.of(4, 133)));
-		statistic.put("Великий Новгород", new HashMap<Integer, Integer>(Map.of(1, 44)));
-		statistic.put("Абакан", new HashMap<Integer, Integer>(Map.of(3, 241, 2, 177)));
-		statistic.put("Бугульма", new HashMap<Integer, Integer>(Map.of(2, 92, 1, 91, 4, 13)));
-		statistic.put("Ачинск", new HashMap<Integer, Integer>(Map.of(4, 39, 3, 154)));
-		statistic.put("Балашов", new HashMap<Integer, Integer>(Map.of(1, 191)));
-		statistic.put("Бийск", new HashMap<Integer, Integer>(Map.of(3, 14, 5, 128)));
-		statistic.put("Армавир", new HashMap<Integer, Integer>(Map.of(1, 69, 4, 88)));
-		statistic.put("Астрахань", new HashMap<Integer, Integer>(Map.of(5, 152)));
-		statistic.put("Владивосток", new HashMap<Integer, Integer>(Map.of(3, 196, 1, 105)));
-		statistic.put("Белово", new HashMap<Integer, Integer>(Map.of(1, 116)));
-		statistic.put("Архангельск", new HashMap<Integer, Integer>(Map.of(3, 85)));
-		statistic.put("Белебей", new HashMap<Integer, Integer>(Map.of(1, 93)));
-		statistic.put("Благовещенск", new HashMap<Integer, Integer>(Map.of(2, 31)));
-		statistic.put("Буйнакск", new HashMap<Integer, Integer>(Map.of(2, 142)));
-		statistic.put("Бердск", new HashMap<Integer, Integer>(Map.of(3, 53)));
-		statistic.put("Ангарск", new HashMap<Integer, Integer>(Map.of(3, 197)));
-		statistic.put("Анжеро-Судженск", new HashMap<Integer, Integer>(Map.of(1, 42)));
-		statistic.put("Балашиха", new HashMap<Integer, Integer>(Map.of(2, 113)));
+		statistic.put("Барнаул", new HashMap<Integer, Integer>(Map.of(2, 1)));
+		statistic.put("Братск", new HashMap<Integer, Integer>(Map.of(5, 2, 4, 1)));
+		statistic.put("Балаково", new HashMap<Integer, Integer>(Map.of(2, 1, 4, 1)));
+		statistic.put("Азов", new HashMap<Integer, Integer>(Map.of(3, 1)));
+		statistic.put("Видное", new HashMap<Integer, Integer>(Map.of(3, 1)));
+		statistic.put("Батайск", new HashMap<Integer, Integer>(Map.of(4, 1)));
+		statistic.put("Великий Новгород", new HashMap<Integer, Integer>(Map.of(1, 1)));
+		statistic.put("Абакан", new HashMap<Integer, Integer>(Map.of(3, 2, 2, 1)));
+		statistic.put("Бугульма", new HashMap<Integer, Integer>(Map.of(2, 1, 1, 1, 4, 1)));
+		statistic.put("Ачинск", new HashMap<Integer, Integer>(Map.of(4, 1, 3, 1)));
+		statistic.put("Балашов", new HashMap<Integer, Integer>(Map.of(1, 2)));
+		statistic.put("Бийск", new HashMap<Integer, Integer>(Map.of(3, 1, 5, 1)));
+		statistic.put("Армавир", new HashMap<Integer, Integer>(Map.of(1, 1, 4, 1)));
+		statistic.put("Астрахань", new HashMap<Integer, Integer>(Map.of(5, 2)));
+		statistic.put("Владивосток", new HashMap<Integer, Integer>(Map.of(3, 1, 1, 1)));
+		statistic.put("Белово", new HashMap<Integer, Integer>(Map.of(1, 1)));
+		statistic.put("Архангельск", new HashMap<Integer, Integer>(Map.of(3, 1)));
+		statistic.put("Белебей", new HashMap<Integer, Integer>(Map.of(1, 1)));
+		statistic.put("Благовещенск", new HashMap<Integer, Integer>(Map.of(2, 1)));
+		statistic.put("Буйнакск", new HashMap<Integer, Integer>(Map.of(2, 1)));
+		statistic.put("Бердск", new HashMap<Integer, Integer>(Map.of(3, 1)));
+		statistic.put("Ангарск", new HashMap<Integer, Integer>(Map.of(3, 1)));
+		statistic.put("Анжеро-Судженск", new HashMap<Integer, Integer>(Map.of(1, 1)));
+		statistic.put("Балашиха", new HashMap<Integer, Integer>(Map.of(2, 1)));
 	}
 }
